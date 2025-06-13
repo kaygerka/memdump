@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 void mymemdump(FILE * fd, char * p , int len) {
-    // Hold the ASCII characters
+    // Hold the ASCII characters & Ensure null termination
     unsigned char buff[17];
-    buff[16] = '\0'; // Ensure null termination
+    buff[16] = '\0';
 
     for (int i = 0; i < len; i++) {
         // Print address at the beginning of every 16 bytes
@@ -25,9 +25,11 @@ void mymemdump(FILE * fd, char * p , int len) {
 
         // Print byte if it's printable; else print '.'
         if (c < 32 || c > 126) {
-            buff[i % 16] = '.'; // Non-printable character
+            // Non-printable character
+            buff[i % 16] = '.'; 
         } else {
-            buff[i % 16] = c; // Printable character
+            // Printable character
+            buff[i % 16] = c; 
         }
 
         // Null-terminate the buff for safe printing
@@ -36,8 +38,9 @@ void mymemdump(FILE * fd, char * p , int len) {
 
     // Pad out last line if not exactly 16 characters
     while (len % 16 != 0) {
-        fprintf(fd, "   "); // Print padding in hex
-        len++; // Increment len to match the output
+        // Print padding in hex & Increment len to match the output
+        fprintf(fd, "   "); 
+        len++;
     }
 
     // Print the final ASCII representation
